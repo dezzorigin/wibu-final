@@ -1,18 +1,51 @@
-# Wibu Final
+# WibuFinal
 
-Watch anime full episodes directly.
+Streaming anime full episode langsung. Fitur: genre, jadwal, favorit, pencarian.
 
-## Tech stack
+## 📋 Tech Stack
 
 Next.js
 
-## Getting started
+## 📁 Struktur Proyek
 
-See project files for setup instructions.
+```
+app/
+components/
+hooks/
+lib/
+LICENSE
+PRD.md
+README.md
+eslint.config.mjs
+metadata.json
+next-env.d.ts
+next.config.ts
+package-lock.json
+package.json
+postcss.config.mjs
+tsconfig.json
+tsconfig.tsbuildinfo
+```
 
-## License
+## 🚀 Getting Started
 
-MIT — see [LICENSE](./LICENSE).
+```bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+```
+
+> Untuk project HTML statis, cukup buka `index.html` di browser atau serve folder dengan static server.
+
+## 📊 Status Proyek
+
+Dalam pengembangan aktif.
+
+## 📄 Lisensi
+
+MIT — lihat [LICENSE](./LICENSE).
 
 ---
-_Maintained by dezzorigin._
+_Dikembangkan oleh **dezzorigin** (Nabil Aulia Dika)._
