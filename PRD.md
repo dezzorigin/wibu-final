@@ -1,35 +1,54 @@
-# PRD — Wibu Final
+# PRD — WibuFinal
 
 ## 1. Informasi Proyek
 
 | Field | Nilai |
 |---|---|
-| Nama Proyek | Wibu Final |
+| Nama Proyek | WibuFinal |
 | Tech Stack | Next.js |
 | Status | Dalam pengembangan |
 | Penanggung Jawab | Nabil Aulia Dika |
+| Live Demo | - |
 | Versi Dokumen | 1.0 |
 | Tanggal | 2026 |
 
 ## 2. Latar Belakang
 
-Watch anime full episodes directly.
+Streaming anime full episode langsung. Fitur: genre, jadwal, favorit, pencarian.
 
 ## 3. Tujuan
 
-Menyediakan solusi digital yang efisien dan mudah dipelihara.
+Menyediakan solusi digital yang efisien, terukur, dan mudah dipelihara.
 
 ## 4. Ruang Lingkup
 
 - Fitur inti aplikasi sesuai struktur repo.
+- Setup & konfigurasi pengembangan lokal.
+- Dokumentasi (README + PRD).
 
 ## 5. Fitur & Persyaratan Fungsional
 
-Lihat struktur folder dan source code.
+Struktur proyek:
+- app/
+- components/
+- hooks/
+- lib/
+- LICENSE
+- PRD.md
+- README.md
+- eslint.config.mjs
+- metadata.json
+- next-env.d.ts
+- next.config.ts
+- package-lock.json
+- package.json
+- postcss.config.mjs
+- tsconfig.json
+- tsconfig.tsbuildinfo
 
 ## 6. Persyaratan Non-Fungsional
 
-- **Performa:** responsif.
+- **Performa:** responsif untuk penggunaan normal.
 - **Keamanan:** rahasia (`.env`) tidak boleh ter-commit.
 - **Maintainability:** kode terstruktur, terdokumentasi.
 
@@ -57,7 +76,7 @@ Next.js
 ## 10. Kriteria Keberhasilan
 
 - Aplikasi berjalan tanpa error di lingkungan dev.
-- README & PRD lengkap.
+- README & PRD lengkap dan up-to-date.
 
 ## 11. Lisensi
 
