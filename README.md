@@ -1,5 +1,9 @@
 # WibuFinal
 
+## 🌐 Live Demo
+
+**https://wibu-final.nblauliadka.workers.dev**
+
 Streaming anime full episode langsung. Fitur: genre, jadwal, favorit, pencarian.
 
 ## 📋 Tech Stack
