@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>WibuFinal — Data Flow</title>
+<style>
+  body { margin: 0; background: #09090b; color: #e4e4e7; font-family: Inter, system-ui, sans-serif; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+  h1 { font-size: 28px; margin: 0 0 8px; color: #fff; }
+  p.sub { color: #a1a1aa; margin: 0 0 32px; line-height: 1.6; }
+  svg { width: 100%; height: auto; display: block; }
+  .note { margin-top: 28px; border: 1px solid #27272a; border-radius: 12px; padding: 16px 20px; font-size: 14px; line-height: 1.7; color: #a1a1aa; }
+  .note b { color: #fff; }
+  code { background: #18181b; padding: 1px 6px; border-radius: 6px; color: #fdba74; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>WibuFinal — how data flows</h1>
+  <p class="sub">Fully static site. The browser does all the fetching; there is no backend of
+  WibuFinal's own. Favorites never leave the device.</p>
+
+  <svg viewBox="0 0 920 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WibuFinal data flow diagram">
+    <defs>
+      <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff4e00"/>
+      </marker>
+      <marker id="arrow-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#71717a"/>
+      </marker>
+    </defs>
+
+    <!-- Browser -->
+    <rect x="30" y="30" width="280" height="150" rx="14" fill="#18181b" stroke="#ff4e00" stroke-width="1.5"/>
+    <text x="50" y="62" fill="#fff" font-size="17" font-weight="700">Visitor browser</text>
+    <text x="50" y="88" fill="#a1a1aa" font-size="13">Next.js static export</text>
+    <text x="50" y="108" fill="#a1a1aa" font-size="13">landing → catalog → detail</text>
+    <text x="50" y="128" fill="#a1a1aa" font-size="13">search · schedule · favorites</text>
+    <text x="50" y="158" fill="#fdba74" font-size="12">localStorage: animeFavorites</text>
+
+    <!-- Pages -->
+    <rect x="30" y="240" width="280" height="110" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="1.5"/>
+    <text x="50" y="272" fill="#fff" font-size="17" font-weight="700">Cloudflare Pages</text>
+    <text x="50" y="298" fill="#a1a1aa" font-size="13">wibu-final.pages.dev</text>
+    <text x="50" y="318" fill="#a1a1aa" font-size="13">static files only (out/)</text>
+    <text x="50" y="338" fill="#71717a" font-size="12">no server · no env vars</text>
+
+    <!-- Jikan -->
+    <rect x="610" y="30" width="280" height="150" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="1.5"/>
+    <text x="630" y="62" fill="#fff" font-size="17" font-weight="700">Jikan API v4</text>
+    <text x="630" y="88" fill="#a1a1aa" font-size="13">api.jikan.moe/v4</text>
+    <text x="630" y="108" fill="#a1a1aa" font-size="13">unofficial MyAnimeList API</text>
+    <text x="630" y="128" fill="#a1a1aa" font-size="13">no key · CORS enabled</text>
+    <text x="630" y="158" fill="#fbbf24" font-size="12">limit 3 req/s · 60 req/min</text>
+
+    <!-- MAL CDN -->
+    <rect x="610" y="240" width="280" height="110" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="1.5"/>
+    <text x="630" y="272" fill="#fff" font-size="17" font-weight="700">MAL poster CDN</text>
+    <text x="630" y="298" fill="#a1a1aa" font-size="13">cdn.myanimelist.net</text>
+    <text x="630" y="318" fill="#a1a1aa" font-size="13">poster images (&lt;img&gt;)</text>
+
+    <!-- Mirror -->
+    <rect x="610" y="410" width="280" height="110" rx="14" fill="#18181b" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <text x="630" y="442" fill="#fff" font-size="17" font-weight="700">Stream mirror</text>
+    <text x="630" y="468" fill="#a1a1aa" font-size="13">animeplay.cfd (iframe)</text>
+    <text x="630" y="488" fill="#fbbf24" font-size="12">third-party · not ours</text>
+    <text x="630" y="506" fill="#71717a" font-size="12">may be down / region-blocked</text>
+
+    <!-- Arrows -->
+    <line x1="170" y1="180" x2="170" y2="238" stroke="#71717a" stroke-width="2" marker-end="url(#arrow-dim)"/>
+    <text x="180" y="212" fill="#71717a" font-size="12">loads files</text>
+
+    <path d="M 310 80 C 450 80, 470 80, 608 80" fill="none" stroke="#ff4e00" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="400" y="66" fill="#fdba74" font-size="12">fetch JSON (CORS)</text>
+
+    <path d="M 310 130 C 450 130, 470 290, 608 290" fill="none" stroke="#71717a" stroke-width="2" marker-end="url(#arrow-dim)"/>
+    <text x="400" y="240" fill="#71717a" font-size="12">poster URLs</text>
+
+    <path d="M 310 160 C 420 160, 480 460, 608 460" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#arrow)"/>
+    <text x="360" y="330" fill="#fbbf24" font-size="12">episode iframe src</text>
+
+    <!-- Cache note -->
+    <rect x="30" y="410" width="280" height="110" rx="14" fill="#2a1503" stroke="#9a3412" stroke-width="1.5"/>
+    <text x="50" y="442" fill="#fff" font-size="15" font-weight="700">Client safeguards</text>
+    <text x="50" y="468" fill="#a1a1aa" font-size="13">requests spaced ≥ 400 ms</text>
+    <text x="50" y="488" fill="#a1a1aa" font-size="13">1 retry on 429 · 10-min cache</text>
+    <text x="50" y="508" fill="#a1a1aa" font-size="13">honest error state + retry</text>
+  </svg>
+
+  <div class="note">
+    <b>Read it as:</b> Pages serves only files. The catalog, posters, and stream each
+    come from a different third party, and each can fail independently — the app shows a
+    clear state for each instead of a blank page. Favorites are the only data WibuFinal
+    keeps, and they stay in <code>localStorage</code> on the visitor's own device.
+  </div>
+</div>
+</body>
+</html>

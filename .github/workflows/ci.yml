@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build static export
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Upload static output
+        uses: actions/upload-artifact@v4
+        with:
+          name: out
+          path: out/
+
+  # Gate keamanan dependensi produksi (pengganti `npm audit --omit=dev`).
+  # `npm audit --omit=dev` tetap melaporkan advisory yang hanya reachable
+  # lewat dev deps (bug npm yang diketahui), sehingga job audit lama gagal
+  # deterministik pada temuan HIGH dev-only padahal pohon produksi bersih.
+  # Sweep ini memakai sumber data yang sama (GitHub Advisory Database,
+  # dipakai Dependabot) tapi hanya memeriksa dependensi produksi, dan tetap
+  # FAIL kalau ada temuan high/critical di prod. Ini pengganti tool yang
+  # rusak, bukan pelonggaran: gate yang sama, pemeriksaannya yang benar.
+  #
+  # Bukti lokal 2026-11-18: sweep menemukan 2 HIGH nyata di produksi
+  # (postcss@8.4.31 tersarang di next, GHSA-r28c-9q8g-f849 +
+  # GHSA-6g55-p6wh-862q) — ditambal via overrides postcss ^8.5.18
+  # (kini 8.5.33), sweep jadi hijau.
+  advisory-sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Advisory sweep (production, high and above)
+        run: python3 scripts/advisory-sweep.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Smoke test terhadap hasil build (job terpisah dari build supaya
+  # kegagalan route ketahuan di job-nya sendiri, bukan tertutup log build).
+  smoke:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download static output
+        uses: actions/download-artifact@v4
+        with:
+          name: out
+          path: out
+
+      - name: Smoke test (serve out/ + check routes)
+        run: npm run smoke
+
+  # Live smoke test terhadap situs produksi (https://wibu-final.pages.dev).
+  # Read-only. Non-gating (continue-on-error): merahnya bisa berarti
+  # deploy terbaru belum jalan, bukan kode repo yang rusak.
+  live-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: true
+    steps:
+      - name: Landing live (HTTP 200 + marker)
+        run: |
+          set -e
+          code=$(curl -s -o /tmp/landing.html -w "%{http_code}" "https://wibu-final.pages.dev/")
+          echo "landing HTTP $code"
+          test "$code" = "200"
+          grep -qi "WibuFinal" /tmp/landing.html
+
+      - name: Detail shell live (HTTP 200)
+        run: |
+          set -e
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://wibu-final.pages.dev/anime")
+          echo "detail shell HTTP $code"
+          test "$code" = "200"

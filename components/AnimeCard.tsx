@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PlayCircle, Bookmark, Star } from 'lucide-react';
-import type { AnimeItem } from '@/lib/scraper';
+import type { AnimeItem } from '@/lib/api';
 
 export function AnimeCard({ anime }: { anime: AnimeItem }) {
  return (
- <Link href={`/anime/${anime.slug}`} className="group relative flex flex-col gap-2">
+ <Link href={`/anime?id=${anime.slug}`} className="group relative flex flex-col gap-2">
  <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-neutral-800 transition-all group-hover:opacity-80">
  {anime.poster ? (
  <Image

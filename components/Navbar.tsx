@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Search, Menu, X, Heart, Bell } from 'lucide-react';
+import { Moon, Sun, Search, Menu, X, Heart, Bell, Github } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -68,6 +68,18 @@ export function Navbar() {
  <Search className="w-4 h-4 absolute left-3 text-white/30" />
  </form>
 
+ <a
+ href="https://github.com/dezzorigin/wibu-final"
+ target="_blank"
+ rel="noreferrer"
+ aria-label="Lihat di GitHub"
+ title="GitHub — dezzorigin/wibu-final"
+ className="flex items-center gap-2 p-2 text-white/60 hover:text-white transition-colors"
+ >
+ <Github className="w-5 h-5" />
+ <span className="hidden lg:inline text-sm font-medium">GitHub</span>
+ </a>
+
  <Link href="/schedule" className="relative p-2 text-white/60 hover:text-white transition-colors" title="New Episodes">
  <Bell className="w-5 h-5" />
  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#ff4e00] rounded-full border-2 border-transparent shadow shadow-[#ff4e00]/50"></span>
@@ -108,6 +120,15 @@ export function Navbar() {
  {link.name}
  </Link>
  ))}
+ <a
+ href="https://github.com/dezzorigin/wibu-final"
+ target="_blank"
+ rel="noreferrer"
+ onClick={() => setIsMenuOpen(false)}
+ className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white/5 text-white/60 hover:text-white font-medium transition-colors"
+ >
+ <Github className="w-4 h-4" /> GitHub
+ </a>
  </div>
  </div>
  )}
