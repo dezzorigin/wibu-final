@@ -45,7 +45,7 @@
 - **CI** (`.github/workflows/ci.yml`, 4 jobs): build (typecheck + lint +
   build + upload `out/`), production advisory sweep, smoke test as its own
   job (`scripts/smoke.mjs` serves `out/` and checks all 18 routes), and a
-  non-gating live smoke test against `https://wibu-final.pages.dev`.
+  non-gating live smoke test against `https://wibufinal.pages.dev`.
 - **Docs**: PRD, architecture, API, deployment, testing + SVG data-flow
   diagram (`docs/`). README rewritten honestly (Jikan limits, third-party
   stream, CORS dependency). Screenshots + silent video demo recorded from the

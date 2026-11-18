@@ -78,7 +78,7 @@ jobs:
       - name: Smoke test (serve out/ + check routes)
         run: npm run smoke
 
-  # Live smoke test terhadap situs produksi (https://wibu-final.pages.dev).
+  # Live smoke test terhadap situs produksi (https://wibufinal.pages.dev).
   # Read-only. Non-gating (continue-on-error): merahnya bisa berarti
   # deploy terbaru belum jalan, bukan kode repo yang rusak.
   live-smoke:
@@ -89,7 +89,7 @@ jobs:
       - name: Landing live (HTTP 200 + marker)
         run: |
           set -e
-          code=$(curl -s -o /tmp/landing.html -w "%{http_code}" "https://wibu-final.pages.dev/")
+          code=$(curl -s -o /tmp/landing.html -w "%{http_code}" "https://wibufinal.pages.dev/")
           echo "landing HTTP $code"
           test "$code" = "200"
           grep -qi "WibuFinal" /tmp/landing.html
@@ -97,6 +97,6 @@ jobs:
       - name: Detail shell live (HTTP 200)
         run: |
           set -e
-          code=$(curl -s -o /dev/null -w "%{http_code}" "https://wibu-final.pages.dev/anime")
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://wibufinal.pages.dev/anime")
           echo "detail shell HTTP $code"
           test "$code" = "200"

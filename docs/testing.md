@@ -12,7 +12,7 @@
    still reports dev-only advisories — see below).
 3. `smoke`: downloads the `out/` artifact, runs `npm run smoke`.
 4. `live-smoke` (non-gating): HTTP 200 + marker on
-   `https://wibu-final.pages.dev/`.
+   `https://wibufinal.pages.dev/`.
 
 Jobs 1–3 must pass. `live-smoke` is `continue-on-error`: it can go red
 when the newest code is not deployed yet, which is not a code failure.

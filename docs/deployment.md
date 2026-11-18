@@ -2,8 +2,10 @@
 
 ## Target
 
-Cloudflare Pages, project **`wibu-final`** → `https://wibu-final.pages.dev`
-(first-try name; fallbacks if taken: `wibufinal`, then `wibu-app`).
+Cloudflare Pages, project **`wibufinal`** → `https://wibufinal.pages.dev`.
+Nama pertama `wibu-final` ternyata sudah dipakai akun Cloudflare lain
+(create → HTTP 409, dan project itu tidak ada di daftar project akun ini),
+jadi dipakai fallback pertama `wibufinal` — subdomain bersih, tanpa sufiks.
 Direct upload of the static export — no wrangler project, no Functions,
 no environment variables.
 
@@ -28,10 +30,10 @@ python3 ~/workspace/github-actions/cf_pages.py deploy wibu-final out
 pasted). Verify after deploy:
 
 ```bash
-curl -s -o /dev/null -w '%{http_code}\n' https://wibu-final.pages.dev/
+curl -s -o /dev/null -w '%{http_code}\n' https://wibufinal.pages.dev/
 # 200, then confirm the landing markers inside a deployed JS chunk
 # (the HTML is a shell; the copy lives in the chunks):
-curl -s https://wibu-final.pages.dev/_next/static/chunks/app/page-*.js | grep -o 'Mulai Nonton'
+curl -s https://wibufinal.pages.dev/_next/static/chunks/app/page-*.js | grep -o 'Mulai Nonton'
 ```
 
 ## Repo About
@@ -40,7 +42,7 @@ After the first live deploy, set the repo homepage so the live URL shows on
 the repo page:
 
 ```bash
-# PATCH /repos/dezzorigin/wibu-final { "homepage": "https://wibu-final.pages.dev" }
+# PATCH /repos/dezzorigin/wibu-final { "homepage": "https://wibufinal.pages.dev" }
 ```
 
 ## Old deployment

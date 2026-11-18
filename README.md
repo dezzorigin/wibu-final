@@ -7,7 +7,7 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-F38020?style=for-the-badge&logo=cloudflarepages&logoColor=white)
 
-🔗 **Live:** https://wibu-final.pages.dev
+🔗 **Live:** https://wibufinal.pages.dev
 
 ---
 
