@@ -22,7 +22,6 @@ export function useFavorites() {
  } catch (e) {
  console.error('Failed to parse favorites from local storage');
  }
- // eslint-disable-next-line react-hooks/set-state-in-effect
  setIsLoaded(true);
  }, []);
 

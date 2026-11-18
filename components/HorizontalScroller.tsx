@@ -37,7 +37,7 @@ export function HorizontalScroller({
  {viewAllHref && (
  <>
  <span className="w-px h-5 bg-white/20"></span>
- <Link href={viewAllHref} className="text-sm text-[#4786d1] font-medium hover:text-white transition-colors">
+ <Link href={viewAllHref} className="text-sm text-[#ff4e00] font-medium hover:text-white transition-colors">
  View All
  </Link>
  </>
