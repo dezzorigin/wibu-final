@@ -11,7 +11,30 @@ export const metadata: Metadata = {
   title: 'WibuFinal — Streaming Anime Full Episode',
   description:
     'WibuFinal adalah katalog + streaming anime: chart musiman, top anime, genre, jadwal rilis mingguan, dan episode yang bisa langsung ditonton — data dari MyAnimeList lewat Jikan API, tanpa akun dan tanpa iklan.',
+  metadataBase: new URL('https://wibufinal.pages.dev'),
   icons: { icon: '/icon.svg' },
+  openGraph: {
+    title: 'WibuFinal — Streaming Anime Full Episode',
+    description:
+      'WibuFinal adalah katalog + streaming anime: chart musiman, top anime, genre, jadwal rilis mingguan, dan episode yang bisa langsung ditonton — data dari MyAnimeList lewat Jikan API, tanpa akun dan tanpa iklan.',
+    type: 'website',
+    url: 'https://wibufinal.pages.dev',
+    images: [
+      {
+        url: 'https://wibufinal.pages.dev/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'WibuFinal — katalog dan streaming anime',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'WibuFinal — Streaming Anime Full Episode',
+    description:
+      'WibuFinal adalah katalog + streaming anime: chart musiman, top anime, genre, jadwal rilis mingguan, dan episode yang bisa langsung ditonton — data dari MyAnimeList lewat Jikan API, tanpa akun dan tanpa iklan.',
+    images: ['https://wibufinal.pages.dev/og-image.png'],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
